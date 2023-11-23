@@ -1,6 +1,9 @@
-from flask import Blueprint
+import os
+from flask import Blueprint, render_template, url_for
+
 
 bp = Blueprint('main', __name__, url_prefix='/')
+
 
 @bp.route('/hello')
 def hello_world():
@@ -8,4 +11,4 @@ def hello_world():
 
 @bp.route('/')
 def index():
-    return '홈'
+    return render_template('index.html')
