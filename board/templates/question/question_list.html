@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
 <div class="container my-3">
     <table class="table">
         <thead>
@@ -12,15 +11,15 @@
         </thead>
         <tbody>
         {% if question_list %}
-            {% for question in question_list.items %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>
-                    <a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
-                </td>
-                <td>{{ question.create_date }}</td>
-            </tr>
-            {% endfor %}
+        {% for question in question_list.items %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+                <a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
+            </td>
+            <td>{{ question.create_date|datetime }}</td>
+        </tr>
+        {% endfor %}
         {% else %}
         <tr>
             <td colspan="3">질문이 없습니다.</td>
@@ -28,7 +27,6 @@
         {% endif %}
         </tbody>
     </table>
-
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->
@@ -43,21 +41,21 @@
         {% endif %}
         <!-- 페이지번호 -->
         {% for page_num in question_list.iter_pages() %}
-            {% if page_num %}
-                {% if page_num != question_list.page %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
-                </li>
-                {% else %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="javascript:void(0)">{{ page_num }}</a>
-                </li>
-                {% endif %}
-            {% else %}
-            <li class="disabled">
-                <a class="page-link" href="javascript:void(0)">...</a>
-            </li>
-            {% endif %}
+        {% if page_num %}
+        {% if page_num != question_list.page %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+        </li>
+        {% else %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="javascript:void(0)">{{ page_num }}</a>
+        </li>
+        {% endif %}
+        {% else %}
+        <li class="disabled">
+            <a class="page-link" href="javascript:void(0)">...</a>
+        </li>
+        {% endif %}
         {% endfor %}
         <!-- 다음페이지 -->
         {% if question_list.has_next %}
@@ -71,9 +69,6 @@
         {% endif %}
     </ul>
     <!-- 페이징처리 끝 -->
-
-
-
     <a href="{{ url_for('question.create') }}" class="btn btn-primary">질문 등록하기</a>
 </div>
-{% endblock content %}
+{% endblock %}
