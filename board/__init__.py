@@ -25,6 +25,6 @@ def create_app():
 
     # 필터
     from .filter import format_datetime
-    app.jinja_env.filter['datetime'] = format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
 
     return app
