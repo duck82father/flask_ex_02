@@ -21,9 +21,9 @@ def signup():
         # 'None'이 'False'이면 = 기존에 존재하지 않는 유저라면!
         if not user:
             user = User(username=form.username.data,
-                        password=generate_password_hash(form.password1),
+                        password=generate_password_hash(form.password1.data),
                         email=form.email.data)
-            db.session.add()
+            db.session.add(user)
             db.session.commit()
             return redirect(url_for('main.index'))
         else:
@@ -41,7 +41,7 @@ def login():
             error = '존재하지 않는 사용자입니다.'
         elif not check_password_hash(user.password, form.password.data):
             error = '비밀번호가 올바르지 않습니다.'
-        if error in None:
+        if error is None:
             session.clear()
             session['user_id'] = user.id
             return redirect(url_for('main.index'))
