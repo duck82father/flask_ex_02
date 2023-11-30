@@ -56,7 +56,6 @@ def load_logged_in_user():
     else:
         g.user = User.query.get(user_id)
 
-
 @bp.route('/logout/')
 def logout():
     session.clear()
